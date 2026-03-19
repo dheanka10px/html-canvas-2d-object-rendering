@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple 2D Object Rendering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="title">
+        <h1>Simple 2D Object Rendering</h1>
+    </div>
+    <div id="canvasWrapper">
+        <canvas id="canvas" width="10px" height="10px"></canvas>
+    </div>
+    <br><br>
+    <div id="actionWrapper">
+        <form action="#" id="formAction">
+            <input type="file" name="file" id="file">
+        </form>
+        <div id="action">
+            <button id="upBtn" onclick="upAction()">Up</button>
+            <button id="rightBtn" onclick="rightAction()">Right</button>
+            <button id="downBtn" onclick="downAction()">Down</button>
+            <button id="leftBtn" onclick="leftAction()">Left</button>
+            <button id="rRotateBtn" onclick="rRotateAction()">Rotate Right</button>
+            <button id="lRotateBtn" onclick="lRotateAction()">Rotate Left</button>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
