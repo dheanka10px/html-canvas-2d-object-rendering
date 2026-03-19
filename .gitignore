@@ -1,0 +1,6 @@
+# Ignore IDE Folder
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
