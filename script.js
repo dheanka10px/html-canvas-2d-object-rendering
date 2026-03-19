@@ -3,27 +3,29 @@ var canvasContext = canvas.getContext("2d")
 var size = 50
 var x = 0
 var y = 0
-
+var moveStep = 10
 canvas.width = window.innerWidth * 80 / 100;
 canvas.height = window.innerHeight * 50 / 100;
 
-canvasContext.fillStyle = "slateblue"
-canvasContext.fillRect(0, 0, canvas.width, canvas.height)
+function drawCanvas() {
+    canvasContext.fillStyle = "slateblue";
+    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
-canvasContext.fillStyle = "blue"
-canvasContext.fillRect(x, y, size, size)
+    canvasContext.fillStyle = "blue";
+    canvasContext.fillRect(x, y, size, size);
+}
 
 function upAction (){
-    console.log("Up Clicked")
+    y -= moveStep
 }
 function rightAction (){
-    console.log("Right Clicked")
+    x += moveStep
 }
 function downAction (){
-    console.log("Down Clicked")
+    y += moveStep
 }
 function leftAction (){
-    console.log("Left Clicked")
+    x -= moveStep
 }
 function rRotateAction (){
     console.log("Right Rotate Clicked")
@@ -75,3 +77,10 @@ document.addEventListener("keydown", function(event) {
             break;
     }
 });
+
+function main() {
+    drawCanvas();
+    requestAnimationFrame(main);
+}
+
+main()
