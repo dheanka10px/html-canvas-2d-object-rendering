@@ -7,12 +7,35 @@ var moveStep = 10
 canvas.width = window.innerWidth * 80 / 100;
 canvas.height = window.innerHeight * 50 / 100;
 
+function createSquareSvg(color = "blue")
+{
+    const svgString = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+    <rect width="50" height="50" fill="${color}"/>
+    </svg>
+    `;
+
+    const img = new Image();
+    const blob = new Blob([svgString], { type: "image/svg+xml" });
+    img.src = URL.createObjectURL(blob);
+    return img;
+}
+
+img = createSquareSvg()
+
 function drawCanvas() {
     canvasContext.fillStyle = "slateblue";
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
-    canvasContext.fillStyle = "blue";
-    canvasContext.fillRect(x, y, size, size);
+    if (img.complete) {
+        canvasContext.drawImage(
+            img,
+            x - size / 2,
+            y - size / 2,
+            size,
+            size
+        );
+    }
 }
 
 function upAction (){
