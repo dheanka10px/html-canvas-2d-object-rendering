@@ -1,9 +1,11 @@
 var canvas = document.getElementById("canvas")
 var canvasContext = canvas.getContext("2d")
 const defaultSize = 50
+const defaultAngle = 0
 var size = defaultSize
 var x = 0
 var y = 0
+var angle = defaultAngle
 var moveStep = 10
 canvas.width = window.innerWidth * 80 / 100;
 canvas.height = window.innerHeight * 50 / 100;
@@ -21,6 +23,7 @@ function resetObject()
     x = canvas.width / 2
     y = canvas.height / 2
     size = defaultSize
+    angle = defaultAngle
 }
 
 function renderSvgContent(svgString)
@@ -54,13 +57,17 @@ function drawCanvas() {
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
     if (img.complete) {
+        canvasContext.save();
+        canvasContext.translate(x, y);
+        canvasContext.rotate(angle)
         canvasContext.drawImage(
             img,
-            x - size / 2,
-            y - size / 2,
+            - size / 2,
+            - size / 2,
             size,
             size
         );
+        canvasContext.restore();
     }
 }
 
@@ -77,10 +84,10 @@ function leftAction (){
     x -= moveStep
 }
 function rRotateAction (){
-    console.log("Right Rotate Clicked")
+    angle += Math.PI / 18;
 }
 function lRotateAction (){
-    console.log("Left Rotate Clicked")
+    angle -= Math.PI / 18;
 }
 function zoomInAction (){
     size += 10
