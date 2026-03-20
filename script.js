@@ -1,6 +1,7 @@
 var canvas = document.getElementById("canvas")
 var canvasContext = canvas.getContext("2d")
-var size = 50
+const defaultSize = 50
+var size = defaultSize
 var x = 0
 var y = 0
 var moveStep = 10
@@ -15,10 +16,11 @@ const squareSvgString = `
 
 const img = new Image();
 
-function resetObjectPosition()
+function resetObject()
 {
     x = canvas.width / 2
     y = canvas.height / 2
+    size = defaultSize
 }
 
 function renderSvgContent(svgString)
@@ -80,6 +82,12 @@ function rRotateAction (){
 function lRotateAction (){
     console.log("Left Rotate Clicked")
 }
+function zoomInAction (){
+    size += 10
+}
+function zoomOutAction (){
+    size -= 10
+}
 
 function simulateClick(btnId) {
     const btn = document.getElementById(btnId);
@@ -97,12 +105,17 @@ document.addEventListener("keydown", function(event) {
 
     switch(event.key) {
         case "r":
-            simulateClick("resetPosBtn")
-            resetObjectPosition()
+            simulateClick("resetBtn")
+            resetObject()
             break;
         case "ArrowUp":
-            simulateClick("upBtn");
-            upAction();
+            if(ctrl){
+                simulateClick("zoomInBtn")
+                zoomInAction()
+            } else {
+                simulateClick("upBtn");
+                upAction();
+            }
             break;
         case "ArrowRight":
             if(ctrl){
@@ -114,8 +127,13 @@ document.addEventListener("keydown", function(event) {
             }
             break;
         case "ArrowDown":
-            simulateClick("downBtn");
-            downAction();
+            if(ctrl){
+                simulateClick("zoomOutBtn");
+                zoomOutAction();
+            } else {
+                simulateClick("downBtn");
+                downAction();
+            }
             break;
         case "ArrowLeft":
             if (ctrl){
@@ -135,5 +153,5 @@ function main() {
 }
 
 renderSvgContent(squareSvgString)
-resetObjectPosition()
+resetObject()
 main()
