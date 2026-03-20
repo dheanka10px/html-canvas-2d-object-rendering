@@ -15,6 +15,12 @@ const squareSvgString = `
 
 const img = new Image();
 
+function resetObjectPosition()
+{
+    x = canvas.width / 2
+    y = canvas.height / 2
+}
+
 function renderSvgContent(svgString)
 {
     const blob = new Blob([svgString], { type: "image/svg+xml" });
@@ -40,8 +46,6 @@ function renderUploadedFile(event)
 
     reader.readAsText(file)
 }
-
-renderSvgContent(squareSvgString)
 
 function drawCanvas() {
     canvasContext.fillStyle = "slateblue";
@@ -92,6 +96,10 @@ document.addEventListener("keydown", function(event) {
     const ctrl = event.ctrlKey;
 
     switch(event.key) {
+        case "r":
+            simulateClick("resetPosBtn")
+            resetObjectPosition()
+            break;
         case "ArrowUp":
             simulateClick("upBtn");
             upAction();
@@ -126,4 +134,6 @@ function main() {
     requestAnimationFrame(main);
 }
 
+renderSvgContent(squareSvgString)
+resetObjectPosition()
 main()
