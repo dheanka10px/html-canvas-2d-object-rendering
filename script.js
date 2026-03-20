@@ -7,21 +7,41 @@ var moveStep = 10
 canvas.width = window.innerWidth * 80 / 100;
 canvas.height = window.innerHeight * 50 / 100;
 
-function createSquareSvg(color = "blue")
-{
-    const svgString = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
-    <rect width="50" height="50" fill="${color}"/>
-    </svg>
-    `;
+const squareSvgString = `
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+    <rect width="50" height="50" fill="blue"/>
+</svg>
+`;
 
-    const img = new Image();
+const img = new Image();
+
+function renderSvgContent(svgString)
+{
     const blob = new Blob([svgString], { type: "image/svg+xml" });
     img.src = URL.createObjectURL(blob);
     return img;
 }
 
-img = createSquareSvg()
+function renderUploadedFile(event)
+{
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    if (file.type !== "image/svg+xml") {
+        alert("Only Svg Allowed !");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        renderSvgContent(e.target.result);
+    };
+
+    reader.readAsText(file)
+}
+
+renderSvgContent(squareSvgString)
 
 function drawCanvas() {
     canvasContext.fillStyle = "slateblue";
